@@ -9,9 +9,6 @@ type Props = {
     onChange: (lang: 'html' | 'css' | 'js', value: string) => void
 }
 
-const pad: Number = 10;
-
-
 export default function Editor({ html, css, js, onChange }: Props) {
     const [tab, setTab] = useState<'html' | 'css' | 'js'>('html')
     const value = tab === 'html' ? html : tab === 'css' ? css : js
@@ -36,7 +33,6 @@ export default function Editor({ html, css, js, onChange }: Props) {
                 onChange={(v) => onChange(tab, v ?? '')}
                 options={{
                     fontSize: 14,
-                    // padding: {pad},
                     minimap: { enabled: false },
                     automaticLayout: true,
                     scrollBeyondLastLine: false,
