@@ -14,7 +14,7 @@ function createWindow() {
     frame: false,
     autoHideMenuBar: true,
     webPreferences: {
-      devTools: false,
+      devTools: true,
       contextIsolation: true,
       preload: path.join(__dirname, "../../build/preload/index.js")
     }

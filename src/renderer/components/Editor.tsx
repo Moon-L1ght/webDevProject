@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MonacoEditor from '@monaco-editor/react'
-import loader from '@monaco-editor/loader'
+// import loader from '@monaco-editor/loader'
 
 type Props = {
     html: string
@@ -14,10 +14,10 @@ export default function Editor({ html, css, js, onChange }: Props) {
     const value = tab === 'html' ? html : tab === 'css' ? css : js
     const language = tab === 'html' ? 'html' : tab === 'css' ? 'css' : 'javascript'
 
-    useEffect(() => {
-        // локальный путь к ассетам Monaco (скопированы в public/monaco/vs)
-        loader.config({ paths: { vs: '/monaco/vs' } })
-    }, [])
+    // useEffect(() => {
+    //     // локальный путь к ассетам Monaco (скопированы в public/monaco/vs)
+    //     loader.config({ paths: { vs: '/monaco/vs' } })
+    // }, [])
 
     return (
         <div className="editor">
