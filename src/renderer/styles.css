@@ -88,9 +88,15 @@ body {
   margin-left: 15px;
 }
 
+.editor {
+  margin-right: 15px;
+  height: 100%;
+}
+
 .editor .tabs { 
   display: flex; 
-  gap: 6px; 
+  gap: 6px;
+  margin-bottom: 15px;
 }
 
 .editor .tabs button { 
@@ -105,6 +111,15 @@ body {
 .editor .tabs button.active { 
   background: #5552f3; 
   color: #fff; 
+}
+
+.monaco-editor {
+  padding-top: 10px;
+  overflow-x: auto;
+}
+
+.monaco-editor .margin {
+  margin-left: -5px;
 }
 
 .preview-header, .console-header { 

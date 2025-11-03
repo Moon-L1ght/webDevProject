@@ -28,7 +28,7 @@ export default function App() {
   return (
     <div className="layout">
         <div className="pane pane-top">
-            <Titlebar />
+            <Titlebar titleName='' taskName='Task 1'/>
         </div>
         <div className="pane pane-bottom">
             <div className="pane pane-left">
