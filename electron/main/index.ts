@@ -1,68 +1,62 @@
-import { app, BrowserWindow, shell } from 'electron'
-import { fileURLToPath } from 'node:url'
-import { dirname, join } from 'node:path'
-import { access } from 'node:fs/promises'
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
 
-const appDir = dirname(fileURLToPath(import.meta.url))
+let mainWindow: BrowserWindow | null = null;
 
-async function waitForFile(filePath: string, timeoutMs = 5000) {
-    const started = Date.now()
-    while (Date.now() - started < timeoutMs) {
-        try {
-            await access(filePath)
-            return
-        } catch {
-            await new Promise((r) => setTimeout(r, 100))
-        }
-    }
-    throw new Error(`Preload not found: ${filePath}`)
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    minWidth: 640,
+    minHeight: 480,
+    frame: false,
+    autoHideMenuBar: true,
+    webPreferences: {
+      devTools: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, '../../build/preload/index.js')
+    },
+  });
+
+  // Dev vs Production
+  if (process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
+    mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
+  }
+
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
 }
 
-async function createWindow() {
-    const preloadPath = join(appDir, '../preload/index.js')
-    const prodIndexHtmlPath = join(appDir, '../../dist/index.html')
+ipcMain.on('window:minimize', (event) => {
+  const w = BrowserWindow.fromWebContents(event.sender);
+  w?.minimize();
+});
 
-    // ждём сборку preload, чтобы не ловить ENOENT
-    await waitForFile(preloadPath).catch((e) => {
-        console.warn('[warn] preload wait failed:', e.message)
-    })
+ipcMain.on('window:maximize', (event) => {
+  const w = BrowserWindow.fromWebContents(event.sender);
+  if (!w) return;
 
-    const win = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        webPreferences: {
-            contextIsolation: true,
-            nodeIntegration: false,
-            sandbox: true,
-            preload: preloadPath
-        }
-    })
+  if (w.isMaximized()) w.unmaximize();
+  else w.maximize();
 
-    win.webContents.setWindowOpenHandler(({ url }) => {
-        shell.openExternal(url)
-        return { action: 'deny' }
-    })
-    win.webContents.on('will-navigate', (e, url) => {
-        if (!url.startsWith('http://localhost') && !url.startsWith('devtools://') && !url.startsWith('file://')) {
-            e.preventDefault()
-        }
-    })
+  event.sender.send('window-maximize-change', w.isMaximized());
+});
 
-    if (process.env.ELECTRON_RENDERER_URL) {
-        await win.loadURL(process.env.ELECTRON_RENDERER_URL)
-        win.webContents.openDevTools()
-    } else {
-        await win.loadFile(prodIndexHtmlPath)
-    }
-}
+ipcMain.on('window:close', (event) => {
+  const w = BrowserWindow.fromWebContents(event.sender);
+  w?.close();
+});
 
-app.whenReady().then(() => {
-    createWindow().catch((e) => console.error(e))
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
-    })
-})
+app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-})
+  if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});

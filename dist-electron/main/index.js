@@ -1,58 +1,53 @@
-import { app, BrowserWindow, shell } from "electron";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-import { access } from "node:fs/promises";
-const appDir = dirname(fileURLToPath(import.meta.url));
-async function waitForFile(filePath, timeoutMs = 5e3) {
-  const started = Date.now();
-  while (Date.now() - started < timeoutMs) {
-    try {
-      await access(filePath);
-      return;
-    } catch {
-      await new Promise((r) => setTimeout(r, 100));
-    }
-  }
-  throw new Error(`Preload not found: ${filePath}`);
-}
-async function createWindow() {
-  const preloadPath = join(appDir, "../preload/index.js");
-  const prodIndexHtmlPath = join(appDir, "../../dist/index.html");
-  await waitForFile(preloadPath).catch((e) => {
-    console.warn("[warn] preload wait failed:", e.message);
-  });
-  const win = new BrowserWindow({
+import { ipcMain, BrowserWindow, app } from "electron";
+import path from "path";
+import __cjs_mod__ from "node:module";
+const __filename = import.meta.filename;
+const __dirname = import.meta.dirname;
+const require2 = __cjs_mod__.createRequire(import.meta.url);
+let mainWindow = null;
+function createWindow() {
+  mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    minWidth: 640,
+    minHeight: 480,
+    frame: false,
+    autoHideMenuBar: true,
     webPreferences: {
+      devTools: false,
       contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: true,
-      preload: preloadPath
-    }
-  });
-  win.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url);
-    return { action: "deny" };
-  });
-  win.webContents.on("will-navigate", (e, url) => {
-    if (!url.startsWith("http://localhost") && !url.startsWith("devtools://") && !url.startsWith("file://")) {
-      e.preventDefault();
+      preload: path.join(__dirname, "../../build/preload/index.js")
     }
   });
   if (process.env.ELECTRON_RENDERER_URL) {
-    await win.loadURL(process.env.ELECTRON_RENDERER_URL);
-    win.webContents.openDevTools();
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
+    mainWindow.webContents.openDevTools();
   } else {
-    await win.loadFile(prodIndexHtmlPath);
+    mainWindow.loadFile(path.join(__dirname, "../../dist/index.html"));
   }
-}
-app.whenReady().then(() => {
-  createWindow().catch((e) => console.error(e));
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  mainWindow.on("closed", () => {
+    mainWindow = null;
   });
+}
+ipcMain.on("window:minimize", (event) => {
+  const w = BrowserWindow.fromWebContents(event.sender);
+  w?.minimize();
 });
+ipcMain.on("window:maximize", (event) => {
+  const w = BrowserWindow.fromWebContents(event.sender);
+  if (!w) return;
+  if (w.isMaximized()) w.unmaximize();
+  else w.maximize();
+  event.sender.send("window-maximize-change", w.isMaximized());
+});
+ipcMain.on("window:close", (event) => {
+  const w = BrowserWindow.fromWebContents(event.sender);
+  w?.close();
+});
+app.whenReady().then(createWindow);
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
+});
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });

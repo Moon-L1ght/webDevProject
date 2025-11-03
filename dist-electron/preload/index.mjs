@@ -1,5 +1,10 @@
-import { contextBridge } from "electron";
-contextBridge.exposeInMainWorld("appApi", {
-  platform: process.platform,
-  versions: process.versions
+import { contextBridge, ipcRenderer } from "electron";
+contextBridge.exposeInMainWorld("electronAPI", {
+  minimize: () => ipcRenderer.send("window:minimize"),
+  maximize: () => ipcRenderer.send("window:maximize"),
+  close: () => ipcRenderer.send("window:close"),
+  onMaximizeChange: (callback) => {
+    ipcRenderer.on("window:maximized", () => callback(true));
+    ipcRenderer.on("window:unmaximized", () => callback(false));
+  }
 });

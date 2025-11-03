@@ -5,8 +5,9 @@
   "type": "module",
   "main": "dist-electron/main/index.js",
   "scripts": {
-    "dev": "electron-vite dev",
-    "build": "electron-vite build",
+    "dev": "npm run build:preload && electron-vite dev",
+    "build:preload": "tsc -p tsconfig.preload.json",
+    "build": "npm run build:preload && electron-vite build",
     "preview": "electron-vite preview",
     "typecheck": "tsc -b --pretty",
     "prepare:monaco": "node src/scripts/copy-monaco.mjs",
