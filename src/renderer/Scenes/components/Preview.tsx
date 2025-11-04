@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react'
-import { buildSrcDoc } from '../sandbox/buildSrcDoc'
+import { buildSrcDoc } from '../../sandbox/buildSrcDoc'
 
 type Props = { html: string; css: string; js: string }
 

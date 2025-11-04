@@ -22,7 +22,7 @@ export default function App() {
     case "Sandbox":
       return (
         <div className="layout">
-          <Sandbox/>
+          <Sandbox taskName='Task 1'/>
         </div>
       );
   }

@@ -1,10 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import Titlebar from '../components/Titlebar';
-import Editor from '../components/Editor';
-import Preview from '../components/Preview';
-import Console from '../components/Console';
+import Titlebar from './components/Titlebar';
+import Editor from './components/Editor';
+import Preview from './components/Preview';
+import Console from './components/Console';
 
-export default function Sandbox() {
+type Props = {
+    taskName?: string;
+}
+
+export default function Sandbox({ taskName }: Props) {
 
     const [html, setHtml] = useState('<h1>Hello, world!</h1>');
     const [css, setCss] = useState(
@@ -23,7 +27,7 @@ export default function Sandbox() {
     return(
         <div className="layout">
             <div className="pane pane-top">
-                <Titlebar titleName='' taskName='Task 1'/>
+                <Titlebar titleName='' taskName={taskName}/>
             </div>
             <div className="pane pane-bottom">
                 <div className="pane pane-left">
