@@ -73,7 +73,7 @@ body {
   background: #e81123; 
 }
 
-.pane-bottom {
+.pane-middle {
   display: grid; 
   grid-template-columns: 1fr 1fr; 
   height: 100vh;
@@ -167,6 +167,57 @@ body {
   background-color: rgba(255,255,255,1);
 }
 
+
+
+.pane-bottom {
+  width: 100%;
+  height: 50px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+.pane-bottom-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.pane-bottom button {
+  background-color: rgb(53, 85, 53);
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.pane-bottom button:hover {
+  background-color: #218a07;
+}
+
+#exit-button {
+  background-color: rgb(133, 19, 19);
+}
+
+#exit-button:hover {
+  background-color: rgb(112, 7, 7);
+}
+
+#task-button {
+  background-color: rgb(55, 128, 128);
+}
+
+#task-button:hover {
+  background-color: rgb(60, 156, 156);
+}
+
+
 .log { 
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; 
   font-size: 12px; 
@@ -189,9 +240,6 @@ body {
   color: #6b7280; 
   font-style: italic; 
 }
-
-
-
 
 .menu {
   display: flex;

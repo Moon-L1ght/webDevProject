@@ -3,12 +3,14 @@ import Titlebar from './components/Titlebar';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
 import Console from './components/Console';
+import Toolbar from './components/Toolbar';
 
-type Props = {
+interface Props {
     taskName?: string;
+    onExit: () => void;
 }
 
-export default function Sandbox({ taskName }: Props) {
+export default function Sandbox({ taskName, onExit }: Props) {
 
     const [html, setHtml] = useState('<h1>Hello, world!</h1>');
     const [css, setCss] = useState(
@@ -29,7 +31,7 @@ export default function Sandbox({ taskName }: Props) {
             <div className="pane pane-top">
                 <Titlebar titleName='' taskName={taskName}/>
             </div>
-            <div className="pane pane-bottom">
+            <div className="pane pane-middle">
                 <div className="pane pane-left">
                     <Editor html={html} css={css} js={js} onChange={onChange} />
                 </div>
@@ -38,6 +40,7 @@ export default function Sandbox({ taskName }: Props) {
                     <Console />
                 </div>
             </div>
+            <Toolbar onExit={ onExit }/>
         </div>
     );
 };
