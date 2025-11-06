@@ -7,10 +7,11 @@ import Toolbar from './components/Toolbar';
 
 interface Props {
     taskName?: string;
+    titleName?: string;
     onExit: () => void;
 }
 
-export default function Sandbox({ taskName, onExit }: Props) {
+export default function Sandbox({ taskName, titleName, onExit }: Props) {
 
     const [html, setHtml] = useState('<h1>Hello, world!</h1>');
     const [css, setCss] = useState(
@@ -29,7 +30,7 @@ export default function Sandbox({ taskName, onExit }: Props) {
     return(
         <div className="layout">
             <div className="pane pane-top">
-                <Titlebar titleName='' taskName={taskName}/>
+                <Titlebar titleName={titleName} taskName={taskName}/>
             </div>
             <div className="pane pane-middle">
                 <div className="pane pane-left">
