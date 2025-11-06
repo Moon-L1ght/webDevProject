@@ -279,3 +279,36 @@ body {
   background-color: #218a07;
   border-radius: 10px;
 }
+
+
+.themes-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.themes-text {
+  text-align: center;
+}
+
+.task-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.task-theme {
+  text-align: center;
+}
+
+.task-title {
+  font-weight: bold;
+}
+
+.task-theme-item {
+  border: 1px solid white;
+  border-radius: 15px;
+  height: 500px;
+  width:  300px;
+  background-color: #413f3f;
+}
