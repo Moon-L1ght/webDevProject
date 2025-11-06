@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type { IframeMessage } from '../types/messages'
+import type { IframeMessage } from '../../types/messages'
 
 export default function Console() {
     const [logs, setLogs] = useState<Array<{ level: string; text: string }>>([])
