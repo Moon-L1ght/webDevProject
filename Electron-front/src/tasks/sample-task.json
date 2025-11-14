@@ -1,0 +1,15 @@
+{
+  "id": "intro-heading",
+  "title": "Заголовок и стиль",
+  "description": "Сделайте заголовок h1 с текстом Hello и покрасьте его в фиолетовый.",
+  "starter": {
+    "html": "<h1>Hello</h1>",
+    "css": "h1 { color: rebeccapurple; }",
+    "js": "console.log('Task ready')"
+  },
+  "checks": [
+    { "type": "dom-exists", "selector": "h1" },
+    { "type": "text-includes", "selector": "h1", "text": "Hello" },
+    { "type": "style-equals", "selector": "h1", "prop": "color", "value": "rgb(102, 51, 153)" }
+  ]
+}

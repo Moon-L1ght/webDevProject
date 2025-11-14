@@ -1,0 +1,314 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: #252525;
+    color: #e5e7eb;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Cantarell, Noto Sans, Arial;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    border-radius: 10px;
+}
+
+.pane {
+    overflow: hidden;
+}
+
+.pane-top {
+    padding: 0px;
+}
+
+.titlebar {
+    height: 32px;
+    -webkit-app-region: drag;
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    align-items: center;
+    background: #2c2c2c;
+}
+
+.titlebar-icon {
+    margin-left: 7px;
+    margin-top: 3px;
+}
+
+.titlebar-title {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.titlebar-buttons {
+    justify-self: flex-end;
+    height: 100%;
+}
+
+.titlebar button {
+    -webkit-app-region: no-drag;
+    width: 46px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}
+
+.titlebar button:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.titlebar button.close:hover {
+    background: #e81123;
+}
+
+.pane-middle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    padding: 16px;
+}
+
+.pane-left {
+    border-right: 1px solid #413f3f;
+}
+
+.pane-right {
+    margin-left: 15px;
+}
+
+.editor {
+    margin-right: 15px;
+    height: 100%;
+}
+
+.editor .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.editor .tabs button {
+    background: #48494d;
+    color: #ffffff;
+    border: 1px solid #707070;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.editor .tabs button.active {
+    background: #5552f3;
+    color: #fff;
+}
+
+.monaco-editor {
+    padding-top: 10px;
+    overflow-x: auto;
+}
+
+.monaco-editor .margin {
+    margin-left: -5px;
+}
+
+.preview-header, .console-header {
+    font-weight: 600;
+    margin: 10px 5px;
+}
+
+.preview {
+    margin-bottom: 15px;
+}
+
+.console {
+    border-top: 1px solid #413f3f;
+
+    height: calc(100% - 40vh);
+    display: flex;
+    flex-direction: column;
+}
+
+.console-body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #333;
+    background: #141414;
+    padding: 6px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+}
+
+.console-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.console-body::-webkit-scrollbar-track {
+    background-color: #413f3f;
+}
+
+.console-body::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 3px;
+}
+
+.console-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255,255,255,1);
+}
+
+
+
+.pane-bottom {
+    width: 100%;
+    height: 50px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.pane-bottom-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pane-bottom button {
+    background-color: rgb(53, 85, 53);
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.pane-bottom button:hover {
+    background-color: #218a07;
+}
+
+#exit-button {
+    background-color: rgb(133, 19, 19);
+}
+
+#exit-button:hover {
+    background-color: rgb(112, 7, 7);
+}
+
+#task-button {
+    background-color: rgb(55, 128, 128);
+}
+
+#task-button:hover {
+    background-color: rgb(60, 156, 156);
+}
+
+
+.log {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.log .level { color: #94a3b8;
+    margin-right: 6px;
+}
+
+.log.warn {
+    color: #f59e0b;
+}
+
+.log.error {
+    color: #f87171;
+}
+
+.muted {
+    color: #6b7280;
+    font-style: italic;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-text {
+    text-align: center;
+}
+
+.menu-title {
+    font-size: 50px;
+    margin-bottom: -20px;
+}
+
+.menu-p {
+    font-size: 30px;
+}
+
+.menu-controller {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.menu-controller button {
+    margin: 0 auto;
+    width: 200px;
+    height: 60px;
+
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+
+    background-color: #218a07;
+    border-radius: 10px;
+}
+
+
+.themes-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.themes-text {
+    text-align: center;
+}
+
+.task-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.task-theme {
+    text-align: center;
+}
+
+.task-title {
+    font-weight: bold;
+}
+
+.task-theme-item {
+    border: 1px solid white;
+    border-radius: 15px;
+    height: 500px;
+    width:  300px;
+    background-color: #413f3f;
+}
