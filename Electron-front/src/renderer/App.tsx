@@ -2,7 +2,7 @@
 // import Sandbox from './Scenes/Sandbox';
 // import Menu from './Scenes/Menu';
 // import { serialize } from 'v8';
-// import TaskMenu from "@/Scenes/TaskMenu";
+// import TaskMenu from "./Scenes/TaskMenu";
 //
 // type Scene = "Menu" | "TaskMenu" | "Sandbox";
 //

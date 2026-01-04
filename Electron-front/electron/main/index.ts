@@ -18,6 +18,8 @@ function createWindow() {
     },
   });
 
+    console.log('ELECTRON_RENDERER_URL =', process.env.ELECTRON_RENDERER_URL);
+
   // Dev vs Production
   if (process.env.ELECTRON_RENDERER_URL) {
     mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
