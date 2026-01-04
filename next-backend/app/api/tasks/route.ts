@@ -40,3 +40,17 @@ export async function POST(request: NextRequest) {
 		);
 	}
 }
+
+export async function DELETE(request: NextRequest) {
+    try {
+        const { db } = await connectToDatabase();
+        const tasks = await db.collection('tasks').deleteMany();
+
+        return NextResponse.json({ status: 200 });
+    } catch (error) {
+        return NextResponse.json(
+            { error: 'Failed to delete tasks' },
+            { status: 500 }
+        );
+    }
+}
