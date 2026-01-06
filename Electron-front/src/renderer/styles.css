@@ -1,3 +1,76 @@
+:root {
+    /* =========================
+       THEME 1 — ORIGINAL (как в SVG)
+       ========================= */
+
+    /* Backgrounds */
+    --bg-0: #0B1220;                /* main background */
+    --bg-1: #060A14;                /* bg gradient dark point */
+    --topbar: #0A1020;
+
+    /* Surfaces */
+    --card: #0F172A;
+    --surface: #0B1220;             /* panels/inputs */
+    --surface-active: #101B33;      /* active row/chips */
+
+    /* Borders / UI lines */
+    --stroke: #223044;
+    --divider: #223044;
+    --progress-track: #1F2A3A;
+
+    /* Text */
+    --text-primary: #E5E7EB;
+    --text-secondary: #94A3B8;
+    --text-mid: #D1D5DB;
+
+    /* Accent */
+    --accent-1: #7C3AED;            /* violet */
+    --accent-2: #22D3EE;            /* cyan */
+    --accent-gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+
+    /* Status */
+    --success: #34D399;
+    --warning: #FBBF24;
+    --info: #60A5FA;
+    --danger: #FB7185;
+
+
+    /* =========================
+       THEME 4 — LIGHT PAPER (suffix: -light)
+       ========================= */
+
+    /* Backgrounds */
+    --bg-0-light: #F5F7FB;
+    --bg-1-light: #E9EEF7;          /* optional second point for gradient */
+    --topbar-light: #FFFFFF;
+
+    /* Surfaces */
+    --card-light: #FFFFFF;
+    --surface-light: #F0F4FA;
+    --surface-active-light: #E8EFF9;
+
+    /* Borders / UI lines */
+    --stroke-light: #D6DEE9;
+    --divider-light: #D6DEE9;
+    --progress-track-light: #D6DEE9;
+
+    /* Text */
+    --text-primary-light: #0F172A;
+    --text-secondary-light: #475569;
+    --text-mid-light: #334155;
+
+    /* Accent */
+    --accent-1-light: #2563EB;      /* blue */
+    --accent-2-light: #06B6D4;      /* cyan */
+    --accent-gradient-light: linear-gradient(135deg, var(--accent-1-light), var(--accent-2-light));
+
+    /* Status */
+    --success-light: #16A34A;
+    --warning-light: #D97706;
+    --info-light: #2563EB;
+    --danger-light: #E11D48;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -8,7 +81,7 @@ html, body, #root {
 
 body {
     margin: 0;
-    background: #252525;
+    background: var(--bg-0);
     color: #e5e7eb;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Cantarell, Noto Sans, Arial;
 }
@@ -22,6 +95,7 @@ body {
 
 .pane {
     overflow: hidden;
+    height: 32px;
 }
 
 .pane-top {
@@ -34,7 +108,7 @@ body {
     display: grid;
     grid-template-columns: 200px 1fr 200px;
     align-items: center;
-    background: #2c2c2c;
+    background: var(--topbar);
 }
 
 .titlebar-icon {
@@ -167,8 +241,6 @@ body {
     background-color: rgba(255,255,255,1);
 }
 
-
-
 .pane-bottom {
     width: 100%;
     height: 50px;
@@ -243,10 +315,53 @@ body {
 
 .menu {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
     height: 100%;
+}
+
+.menu__nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 64px;
+    height: calc(100% - 32px);
+    position: fixed;
+}
+
+.menu__nav__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.menu__nav__list-item {
+    display: flex;
+    text-decoration: none;
+}
+
+.menu__nav-settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+}
+
+
+.menu__main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.menu-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 
 .menu-text {
