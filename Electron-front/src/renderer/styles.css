@@ -73,6 +73,8 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html, body, #root {
@@ -315,8 +317,12 @@ body {
 
 .menu {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
+    height: 100%;
+}
+
+.menu__sidebar {
     height: 100%;
 }
 
@@ -325,8 +331,8 @@ body {
     flex-direction: column;
     justify-content: space-between;
     width: 64px;
-    height: calc(100% - 32px);
-    position: fixed;
+    height: 100%;
+    /*position: fixed;*/
 }
 
 .menu__nav__list {
@@ -338,8 +344,9 @@ body {
 }
 
 .menu__nav__list-item {
+    height: 64px;
     display: flex;
-    text-decoration: none;
+    align-items: center;
 }
 
 .menu__nav-settings {
@@ -350,7 +357,7 @@ body {
 }
 
 
-.menu__main-content {
+.menu__main {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -359,22 +366,24 @@ body {
 }
 
 .menu-header {
+    height: 48px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
 .menu-text {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .menu-title {
-    font-size: 50px;
-    margin-bottom: -20px;
+    font-size: 32px;
 }
 
 .menu-p {
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .menu-controller {
